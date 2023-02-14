@@ -1,9 +1,8 @@
 package heroes;
 
-import equipments.Armor;
-import equipments.ArmorType;
-import equipments.Item;
+import equipments.*;
 import exceptions.InvalidArmorException;
+import exceptions.InvalidWeaponException;
 
 public class Warrior extends Hero{
 
@@ -22,10 +21,21 @@ public class Warrior extends Hero{
     }
 
     @Override
-    Item isItemEquipable(Armor armor) throws InvalidArmorException {
+    Item isArmorEquipable(Armor armor) throws InvalidArmorException {
         if ((armor.getArmorType() == ArmorType.Plate) || (armor.getArmorType() == ArmorType.Mail))
             return armor;
 
         throw new InvalidArmorException("Warrior can only wear plate or mail !");
+    }
+
+    @Override
+    Item isWeaponEquipable(Weapon weapon) throws InvalidWeaponException {
+        if (weapon.getWeaponType() == WeaponType.Axes
+                || weapon.getWeaponType() == WeaponType.Hammers
+                || weapon.getWeaponType() == WeaponType.Swords)
+            return weapon;
+
+
+        throw new InvalidWeaponException("Mage can only equip Staff or Wands as weapons !");
     }
 }

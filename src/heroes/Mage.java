@@ -1,9 +1,8 @@
 package heroes;
 
-import equipments.Armor;
-import equipments.ArmorType;
-import equipments.Item;
+import equipments.*;
 import exceptions.InvalidArmorException;
+import exceptions.InvalidWeaponException;
 
 public class Mage extends Hero{
 
@@ -12,14 +11,23 @@ public class Mage extends Hero{
         super(name);
         this.setHeroAttributes(new HeroAttributes(1, 1, 8));
     }
-    
+
     @Override
-    Item isItemEquipable(Armor armor) throws InvalidArmorException {
+    Item isArmorEquipable(Armor armor) throws InvalidArmorException {
         if (armor.getArmorType() != ArmorType.Cloth){
             throw new InvalidArmorException("Mage can only wear cloth!");
         }
 
         return armor;
+    }
+
+    @Override
+    Item isWeaponEquipable(Weapon weapon) throws InvalidWeaponException {
+        if (weapon.getWeaponType() == WeaponType.Staffs || weapon.getWeaponType() == WeaponType.Wands){
+            return weapon;
+        }
+
+        throw new InvalidWeaponException("Mage can only equip Staff or Wands as weapons !");
     }
 
     @Override

@@ -3,7 +3,9 @@ package heroes;
 import equipments.Armor;
 import equipments.Item;
 import equipments.Slot;
+import equipments.Weapon;
 import exceptions.InvalidArmorException;
+import exceptions.InvalidWeaponException;
 
 import java.util.HashMap;
 
@@ -33,7 +35,21 @@ public abstract class Hero {
         this.equipment.put(Slot.Weapon, null);
     }
 
-    abstract Item isItemEquipable(Armor armor) throws InvalidArmorException;
+    /**
+     *
+     * @param armor
+     * @return the argument that was passed in to the parameter if the item is equipable
+     * @throws InvalidArmorException
+     */
+    abstract Item isArmorEquipable(Armor armor) throws InvalidArmorException;
+
+    /**
+     *
+     * @param weapon
+     * @return the argument that was passed in to the parameter if the item is equipable
+     * @throws InvalidWeaponException
+     */
+    abstract Item isWeaponEquipable(Weapon weapon) throws InvalidWeaponException;
 
     public abstract void LevelUp();
 

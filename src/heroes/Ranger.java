@@ -1,9 +1,8 @@
 package heroes;
 
-import equipments.Armor;
-import equipments.ArmorType;
-import equipments.Item;
+import equipments.*;
 import exceptions.InvalidArmorException;
+import exceptions.InvalidWeaponException;
 
 public class Ranger extends Hero{
 
@@ -21,10 +20,18 @@ public class Ranger extends Hero{
     }
 
     @Override
-    Item isItemEquipable(Armor armor) throws InvalidArmorException {
+    Item isArmorEquipable(Armor armor) throws InvalidArmorException {
         if ((armor.getArmorType() == ArmorType.Leather) || (armor.getArmorType() == ArmorType.Mail))
             return armor;
 
         throw new InvalidArmorException("Ranger can only wear leather or mail !");
+    }
+
+    @Override
+    Item isWeaponEquipable(Weapon weapon) throws InvalidWeaponException {
+        if (weapon.getWeaponType() != WeaponType.Bows)
+            throw new InvalidWeaponException("Mage can only equip Staff or Wands as weapons !");
+
+        return weapon;
     }
 }
