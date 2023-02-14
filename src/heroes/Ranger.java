@@ -1,5 +1,10 @@
 package heroes;
 
+import equipments.Armor;
+import equipments.ArmorType;
+import equipments.Item;
+import exceptions.InvalidArmorException;
+
 public class Ranger extends Hero{
 
     public Ranger(String name) {
@@ -13,5 +18,13 @@ public class Ranger extends Hero{
         this.getHeroAttributes().setDexterity(this.getHeroAttributes().getDexterity()+5);
         this.getHeroAttributes().setStrength(this.getHeroAttributes().getStrength()+1);
         this.getHeroAttributes().setIntelligence(this.getHeroAttributes().getIntelligence()+1);
+    }
+
+    @Override
+    Item isItemEquipable(Armor armor) throws InvalidArmorException {
+        if ((armor.getArmorType() == ArmorType.Leather) || (armor.getArmorType() == ArmorType.Mail))
+            return armor;
+
+        throw new InvalidArmorException("Ranger can only wear leather or mail !");
     }
 }
