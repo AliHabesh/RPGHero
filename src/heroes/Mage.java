@@ -37,4 +37,20 @@ public class Mage extends Hero{
         this.getHeroAttributes().setStrength(this.getHeroAttributes().getStrength()+1);
         this.getHeroAttributes().setIntelligence(this.getHeroAttributes().getIntelligence()+5);
     }
+
+
+    @Override
+    public int damage() {
+        Weapon weapon = (Weapon) this.getEquipment().get(Slot.Weapon);
+        HeroAttributes heroAttributes = totalAttributes();
+        return heroAttributes.getIntelligence() + weapon.getWeaponDamage();
+    }
+
+    @Override
+    public void display() {
+
+
+    }
+
+
 }

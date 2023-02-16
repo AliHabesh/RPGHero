@@ -19,6 +19,20 @@ public class Ranger extends Hero{
         this.getHeroAttributes().setIntelligence(this.getHeroAttributes().getIntelligence()+1);
     }
 
+
+
+    @Override
+    public int damage() {
+        Weapon weapon = (Weapon) this.getEquipment().get(Slot.Weapon);
+        HeroAttributes heroAttributes = totalAttributes();
+        return heroAttributes.getDexterity() + weapon.getWeaponDamage();
+    }
+
+    @Override
+    public void display() {
+
+    }
+
     @Override
     Item isArmorEquipable(Armor armor) throws InvalidArmorException {
         if ((armor.getArmorType() == ArmorType.Leather) || (armor.getArmorType() == ArmorType.Mail))

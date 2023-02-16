@@ -20,6 +20,20 @@ public class Rogue extends Hero{
 
     }
 
+
+
+    @Override
+    public int damage() {
+        Weapon weapon = (Weapon) this.getEquipment().get(Slot.Weapon);
+        HeroAttributes heroAttributes = totalAttributes();
+        return heroAttributes.getDexterity() + weapon.getWeaponDamage();
+    }
+
+    @Override
+    public void display() {
+
+    }
+
     @Override
     Item isArmorEquipable(Armor armor) throws InvalidArmorException {
         if ((armor.getArmorType() == ArmorType.Leather) || (armor.getArmorType() == ArmorType.Mail))
