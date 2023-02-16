@@ -18,7 +18,7 @@ import java.util.Map;
  */
 public abstract class Hero {
     private String name;
-    private int level;
+    private int level = 1;
     private HeroAttributes heroAttributes;
 
 
