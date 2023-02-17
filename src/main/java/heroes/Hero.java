@@ -1,6 +1,5 @@
 package heroes;
 
-import com.sun.jdi.Value;
 import equipments.Armor;
 import equipments.Item;
 import equipments.Slot;
@@ -8,9 +7,7 @@ import equipments.Weapon;
 import exceptions.InvalidArmorException;
 import exceptions.InvalidWeaponException;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,7 +15,7 @@ import java.util.Map;
  */
 public abstract class Hero {
     private String name;
-    private int level;
+    private int level = 1;
     private HeroAttributes heroAttributes;
 
 
@@ -48,7 +45,7 @@ public abstract class Hero {
      * @return the argument that was passed in to the parameter if the item is equipable
      * @throws InvalidArmorException
      */
-    abstract Item isArmorEquipable(Armor armor) throws InvalidArmorException;
+    public abstract Item equipArmor(Armor armor) throws InvalidArmorException;
 
     /**
      *
@@ -56,7 +53,7 @@ public abstract class Hero {
      * @return the argument that was passed in to the parameter if the item is equipable
      * @throws InvalidWeaponException
      */
-    abstract Item isWeaponEquipable(Weapon weapon) throws InvalidWeaponException;
+    public abstract Item equipWeapon(Weapon weapon) throws InvalidWeaponException;
 
     public abstract void LevelUp();
 

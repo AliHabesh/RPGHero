@@ -27,7 +27,7 @@ public class Warrior extends Hero{
     public int damage() {
         Weapon weapon = (Weapon) this.getEquipment().get(Slot.Weapon);
         HeroAttributes heroAttributes = totalAttributes();
-        return heroAttributes.getStrength() + weapon.getWeaponDamage();
+        return  weapon.getWeaponDamage() * (1+heroAttributes.getStrength()/100);
     }
 
     @Override
@@ -36,21 +36,21 @@ public class Warrior extends Hero{
     }
 
     @Override
-    Item isArmorEquipable(Armor armor) throws InvalidArmorException {
+    public Item equipArmor(Armor armor) throws InvalidArmorException {
         if ((armor.getArmorType() == ArmorType.Plate) || (armor.getArmorType() == ArmorType.Mail))
             return armor;
 
-        throw new InvalidArmorException("Warrior can only wear plate or mail !");
+        throw new InvalidArmorException();
     }
 
     @Override
-    Item isWeaponEquipable(Weapon weapon) throws InvalidWeaponException {
+    public Item equipWeapon(Weapon weapon) throws InvalidWeaponException {
         if (weapon.getWeaponType() == WeaponType.Axes
                 || weapon.getWeaponType() == WeaponType.Hammers
                 || weapon.getWeaponType() == WeaponType.Swords)
             return weapon;
 
 
-        throw new InvalidWeaponException("Mage can only equip Staff or Wands as weapons !");
+        throw new InvalidWeaponException();
     }
 }
