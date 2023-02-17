@@ -25,7 +25,7 @@ public class Ranger extends Hero{
     public int damage() {
         Weapon weapon = (Weapon) this.getEquipment().get(Slot.Weapon);
         HeroAttributes heroAttributes = totalAttributes();
-        return heroAttributes.getDexterity() + weapon.getWeaponDamage();
+        return  weapon.getWeaponDamage() * (1+heroAttributes.getDexterity()/100);
     }
 
     @Override
@@ -34,17 +34,17 @@ public class Ranger extends Hero{
     }
 
     @Override
-    Item isArmorEquipable(Armor armor) throws InvalidArmorException {
+    public Item equipArmor(Armor armor) throws InvalidArmorException {
         if ((armor.getArmorType() == ArmorType.Leather) || (armor.getArmorType() == ArmorType.Mail))
             return armor;
 
-        throw new InvalidArmorException("Ranger can only wear leather or mail !");
+        throw new InvalidArmorException();
     }
 
     @Override
-    Item isWeaponEquipable(Weapon weapon) throws InvalidWeaponException {
+   public Item equipWeapon(Weapon weapon) throws InvalidWeaponException {
         if (weapon.getWeaponType() != WeaponType.Bows)
-            throw new InvalidWeaponException("Mage can only equip Staff or Wands as weapons !");
+            throw new InvalidWeaponException();
 
         return weapon;
     }

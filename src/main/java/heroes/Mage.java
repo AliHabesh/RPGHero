@@ -13,21 +13,24 @@ public class Mage extends Hero{
     }
 
     @Override
-    Item isArmorEquipable(Armor armor) throws InvalidArmorException {
-        if (armor.getArmorType() != ArmorType.Cloth){
-            throw new InvalidArmorException("Mage can only wear cloth!");
+    public Item equipArmor(Armor armor) throws InvalidArmorException {
+        if (armor.getArmorType() != ArmorType.Cloth || armor.getRequiredLevel() != this.getLevel()){
+            throw new InvalidArmorException();
         }
+
+
 
         return armor;
     }
 
     @Override
-    Item isWeaponEquipable(Weapon weapon) throws InvalidWeaponException {
-        if (weapon.getWeaponType() == WeaponType.Staffs || weapon.getWeaponType() == WeaponType.Wands){
+    public Item equipWeapon(Weapon weapon) throws InvalidWeaponException {
+        if ((weapon.getWeaponType() == WeaponType.Staffs || weapon.getWeaponType() == WeaponType.Wands) &&
+                weapon.getRequiredLevel() == this.getLevel()){
             return weapon;
         }
 
-        throw new InvalidWeaponException("Mage can only equip Staff or Wands as weapons !");
+        throw new InvalidWeaponException();
     }
 
     @Override
@@ -43,7 +46,7 @@ public class Mage extends Hero{
     public int damage() {
         Weapon weapon = (Weapon) this.getEquipment().get(Slot.Weapon);
         HeroAttributes heroAttributes = totalAttributes();
-        return heroAttributes.getIntelligence() + weapon.getWeaponDamage();
+        return  weapon.getWeaponDamage() * (1+heroAttributes.getIntelligence()/100);
     }
 
     @Override

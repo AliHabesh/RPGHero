@@ -1,10 +1,14 @@
 package heroes_testing;
 
+import equipments.*;
+import exceptions.InvalidArmorException;
+import exceptions.InvalidWeaponException;
 import heroes.Hero;
 import heroes.Mage;
 import org.junit.Assert;
 import org.junit.Test;
 
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
 public class MageTest {
@@ -33,6 +37,74 @@ public class MageTest {
                 hero.getHeroAttributes().getDexterity() == 2 &&
                 hero.getHeroAttributes().getIntelligence() == 13);
     }
+
+    @Test
+    public void hero_Equip_Armor(){
+        Armor armor = new Armor("divineShirt", 2, Slot.Body, ArmorType.Cloth);
+        Hero hero = new Mage("Gandalf");
+         assertThrows(InvalidArmorException.class, () -> {
+            hero.equipArmor(armor);
+        });
+    }
+
+    @Test
+    public void hero_Equip_WeaponType(){
+        Weapon weapon = new Weapon("Axer", 1, WeaponType.Swords, 1);
+        Hero hero = new Mage("Gandalf");
+        assertThrows(InvalidWeaponException.class, () -> {
+            hero.equipWeapon(weapon);
+        });
+    }
+
+    @Test
+    public void hero_Equip_Weapon_RequiredLevel(){
+        Weapon weapon = new Weapon("MrStaff", 2, WeaponType.Staffs, 1);
+        Hero hero = new Mage("Gandalf");
+        assertThrows(InvalidWeaponException.class, () -> {
+            hero.equipWeapon(weapon);
+        });
+    }
+
+    @Test
+    public void total_attributes_no_equipment(){
+
+    }
+
+    @Test
+    public void total_attributes_one_armor_equipment(){
+
+    }
+
+    @Test
+    public void total_attributes_two_armor_equipments(){
+
+    }
+
+    @Test
+    public void total_attributes_replace_armor_equipment(){
+
+    }
+
+    @Test
+    public void hero_damage_no_weapon_equipment(){
+
+    }
+
+    @Test
+    public void hero_damage_weapon_equipped(){
+
+    }
+
+    @Test
+    public void hero_damage_replace_weapon_equipment(){
+
+    }
+
+    @Test
+    public void hero_damage_weapon_and_armor_equipment(){
+
+    }
+
 
 
 }
