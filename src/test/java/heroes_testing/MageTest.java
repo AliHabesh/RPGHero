@@ -113,27 +113,50 @@ public class MageTest {
     }
 
     @Test
-    public void hero_damage_no_weapon_equipment() throws InvalidWeaponException {
+    public void hero_damage_no_weapon_equipment() {
+        Hero hero = new Mage("Gandalf");
+        double heroTotalDamage = hero.damage();
+        System.out.println(heroTotalDamage);
+        assertTrue(heroTotalDamage == 1);
+    }
+
+    @Test
+    public void hero_damage_weapon_equipped() throws InvalidWeaponException {
         Hero hero = new Mage("Gandalf");
         Weapon weapon = new Weapon("Staff", 1, WeaponType.Staffs, 1);
         hero.equipWeapon(weapon);
         double heroTotalDamage = hero.damage();
         System.out.println(heroTotalDamage);
-        assertTrue(heroTotalDamage == 0.09);
+        assertTrue(heroTotalDamage == 1.08);
     }
 
     @Test
-    public void hero_damage_weapon_equipped(){
+    public void hero_damage_replace_weapon_equipment() throws InvalidWeaponException {
+        Hero hero = new Mage("Gandalf");
+        Weapon weapon = new Weapon("Staff", 1, WeaponType.Staffs, 1);
+        Weapon replacementWeapon = new Weapon("StaffReplacement", 1, WeaponType.Staffs, 2);
+        hero.equipWeapon(weapon);
+        hero.equipWeapon(replacementWeapon);
+        double heroTotalDamage = hero.damage();
+        System.out.println(heroTotalDamage);
+        assertTrue(heroTotalDamage == 2.16);
 
     }
 
     @Test
-    public void hero_damage_replace_weapon_equipment(){
+    public void hero_damage_weapon_and_armor_equipment() throws InvalidWeaponException, InvalidArmorException {
+        Hero hero = new Mage("Gandalf");
 
-    }
+        Weapon weapon = new Weapon("StaffReplacement", 1, WeaponType.Staffs, 2);
+        hero.equipWeapon(weapon);
 
-    @Test
-    public void hero_damage_weapon_and_armor_equipment(){
+        HeroAttributes armorAttribute = new HeroAttributes(1, 1, 3);
+        Armor armor = new Armor("Shirt", 1, Slot.Body, ArmorType.Cloth, armorAttribute);
+        hero.equipArmor(armor);
+
+        double heroTotalDamage = hero.damage();
+        System.out.println(heroTotalDamage);
+        assertTrue(heroTotalDamage == 2.22);
 
     }
 

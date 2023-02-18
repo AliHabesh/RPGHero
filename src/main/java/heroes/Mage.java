@@ -47,8 +47,7 @@ public class Mage extends Hero{
     public double damage() {
         Weapon weapon = (Weapon) this.getEquipment().get(Slot.Weapon);
         HeroAttributes heroAttributes = totalAttributes();
-        System.out.println(weapon.getWeaponDamage());
-        return  weapon.getWeaponDamage() * (1+heroAttributes.getIntelligence()/100);
+        return  weapon != null ? weapon.getWeaponDamage() * (1+heroAttributes.getIntelligence()/100.0) : 1;
     }
 
 

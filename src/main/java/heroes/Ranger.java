@@ -25,21 +25,24 @@ public class Ranger extends Hero{
     public double damage() {
         Weapon weapon = (Weapon) this.getEquipment().get(Slot.Weapon);
         HeroAttributes heroAttributes = totalAttributes();
-        return  weapon.getWeaponDamage() * (1+heroAttributes.getDexterity()/100);
+        return  weapon != null ? weapon.getWeaponDamage() * (1+heroAttributes.getDexterity()/100.0) : 1;
     }
 
     @Override
     public Item equipArmor(Armor armor) throws InvalidArmorException {
-        if ((armor.getArmorType() == ArmorType.Leather) || (armor.getArmorType() == ArmorType.Mail))
+        if ((armor.getArmorType() == ArmorType.Leather || armor.getArmorType() == ArmorType.Mail) && this.getLevel() == armor.getRequiredLevel()){
+            this.getEquipment().put(armor.getSlot(), armor);
             return armor;
+        }
 
-        this.getEquipment().put(armor.getSlot(), armor);
+
+
         throw new InvalidArmorException();
     }
 
     @Override
    public Item equipWeapon(Weapon weapon) throws InvalidWeaponException {
-        if (weapon.getWeaponType() != WeaponType.Bows)
+        if (weapon.getWeaponType() != WeaponType.Bows || this.getLevel() != weapon.getRequiredLevel())
             throw new InvalidWeaponException();
 
         this.getEquipment().put(weapon.getSlot(), weapon);
