@@ -88,19 +88,19 @@ public abstract class Hero {
     /**
      * Calculates the Heroes sum of levelling attributes and the armor attributes from the equipments.
      */
-    public HeroAttributes totalAttributes(){
-        var armorList = equipment.entrySet().stream().filter(entry -> entry.getValue() instanceof Armor);
-        Map<String, Integer> attributeSumMap = new HashMap<>(Map.of("strength", this.getHeroAttributes().getStrength(), "dexterity",this.getHeroAttributes().getDexterity(), "intelligence", this.getHeroAttributes().getIntelligence()));
+        public HeroAttributes totalAttributes(){
+            var armorList = equipment.entrySet().stream().filter(entry -> entry.getValue() instanceof Armor);
+            Map<String, Integer> attributeSumMap = new HashMap<>(Map.of("strength", this.getHeroAttributes().getStrength(), "dexterity",this.getHeroAttributes().getDexterity(), "intelligence", this.getHeroAttributes().getIntelligence()));
 
-        armorList.forEach(entry -> {
-            Armor armor = (Armor) entry.getValue();
-            attributeSumMap.put("strength",  attributeSumMap.get("strength") + armor.getArmorAttribute().getStrength());
-            attributeSumMap.put("dexterity",  attributeSumMap.get("dexterity") + armor.getArmorAttribute().getDexterity());
-            attributeSumMap.put("intelligence",  attributeSumMap.get("intelligence") + armor.getArmorAttribute().getIntelligence());
-        });
+            armorList.forEach(entry -> {
+                Armor armor = (Armor) entry.getValue();
+                attributeSumMap.put("strength",  attributeSumMap.get("strength") + armor.getArmorAttribute().getStrength());
+                attributeSumMap.put("dexterity",  attributeSumMap.get("dexterity") + armor.getArmorAttribute().getDexterity());
+                attributeSumMap.put("intelligence",  attributeSumMap.get("intelligence") + armor.getArmorAttribute().getIntelligence());
+            });
 
-        return new HeroAttributes(attributeSumMap.get("strength"), attributeSumMap.get("dexterity"), attributeSumMap.get("intelligence"));
-    }
+            return new HeroAttributes(attributeSumMap.get("strength"), attributeSumMap.get("dexterity"), attributeSumMap.get("intelligence"));
+        }
 
     /**
      * Calculates the damage a hero deals which is based in their currently
