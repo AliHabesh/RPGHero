@@ -30,7 +30,7 @@ public class Ranger extends Hero{
 
     @Override
     public Item equipArmor(Armor armor) throws InvalidArmorException {
-        if ((armor.getArmorType() == ArmorType.Leather) || (armor.getArmorType() == ArmorType.Mail)){
+        if ((armor.getArmorType() == ArmorType.Leather || armor.getArmorType() == ArmorType.Mail) && this.getLevel() == armor.getRequiredLevel()){
             this.getEquipment().put(armor.getSlot(), armor);
             return armor;
         }
@@ -42,7 +42,7 @@ public class Ranger extends Hero{
 
     @Override
    public Item equipWeapon(Weapon weapon) throws InvalidWeaponException {
-        if (weapon.getWeaponType() != WeaponType.Bows)
+        if (weapon.getWeaponType() != WeaponType.Bows || this.getLevel() != weapon.getRequiredLevel())
             throw new InvalidWeaponException();
 
         this.getEquipment().put(weapon.getSlot(), weapon);
