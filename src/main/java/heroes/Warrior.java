@@ -27,28 +27,30 @@ public class Warrior extends Hero{
     public double damage() {
         Weapon weapon = (Weapon) this.getEquipment().get(Slot.Weapon);
         HeroAttributes heroAttributes = totalAttributes();
-        return  weapon.getWeaponDamage() * (1+heroAttributes.getStrength()/100);
+        return  weapon != null ? weapon.getWeaponDamage() * (1+heroAttributes.getStrength()/100.0) : 1;
     }
 
 
     @Override
     public Item equipArmor(Armor armor) throws InvalidArmorException {
-        if ((armor.getArmorType() == ArmorType.Plate) || (armor.getArmorType() == ArmorType.Mail))
+        if ((armor.getArmorType() == ArmorType.Plate || armor.getArmorType() == ArmorType.Mail) &&
+        this.getLevel() == armor.getRequiredLevel()){
+            this.getEquipment().put(armor.getSlot(), armor);
             return armor;
+        }
 
-        this.getEquipment().put(armor.getSlot(), armor);
         throw new InvalidArmorException();
     }
 
     @Override
     public Item equipWeapon(Weapon weapon) throws InvalidWeaponException {
-        if (weapon.getWeaponType() == WeaponType.Axes
+        if ((weapon.getWeaponType() == WeaponType.Axes
                 || weapon.getWeaponType() == WeaponType.Hammers
-                || weapon.getWeaponType() == WeaponType.Swords)
+                || weapon.getWeaponType() == WeaponType.Swords) &&
+                this.getLevel() == weapon.getRequiredLevel()) {
+            this.getEquipment().put(weapon.getSlot(), weapon);
             return weapon;
-
-        this.getEquipment().put(weapon.getSlot(), weapon);
-
+        }
 
         throw new InvalidWeaponException();
     }
