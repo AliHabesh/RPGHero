@@ -19,7 +19,7 @@ public class Mage extends Hero{
         }
 
 
-
+        this.getEquipment().put(armor.getSlot(), armor);
         return armor;
     }
 
@@ -27,6 +27,7 @@ public class Mage extends Hero{
     public Item equipWeapon(Weapon weapon) throws InvalidWeaponException {
         if ((weapon.getWeaponType() == WeaponType.Staffs || weapon.getWeaponType() == WeaponType.Wands) &&
                 weapon.getRequiredLevel() == this.getLevel()){
+            this.getEquipment().put(weapon.getSlot(), weapon);
             return weapon;
         }
 
@@ -43,17 +44,14 @@ public class Mage extends Hero{
 
 
     @Override
-    public int damage() {
+    public double damage() {
         Weapon weapon = (Weapon) this.getEquipment().get(Slot.Weapon);
         HeroAttributes heroAttributes = totalAttributes();
+        System.out.println(weapon.getWeaponDamage());
         return  weapon.getWeaponDamage() * (1+heroAttributes.getIntelligence()/100);
     }
 
-    @Override
-    public void display() {
 
-
-    }
 
 
 }

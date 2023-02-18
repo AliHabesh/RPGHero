@@ -90,14 +90,13 @@ public abstract class Hero {
      */
     public HeroAttributes totalAttributes(){
         var armorList = equipment.entrySet().stream().filter(entry -> entry.getValue() instanceof Armor);
-        Map<String, Integer> attributeSumMap = new HashMap<>(Map.of("strength", 0, "dexterity",0, "intelligence", 0));
+        Map<String, Integer> attributeSumMap = new HashMap<>(Map.of("strength", this.getHeroAttributes().getStrength(), "dexterity",this.getHeroAttributes().getDexterity(), "intelligence", this.getHeroAttributes().getIntelligence()));
 
         armorList.forEach(entry -> {
             Armor armor = (Armor) entry.getValue();
-           attributeSumMap.put("strength",  armor.getArmorAttribute().getStrength()+heroAttributes.getStrength());
-            attributeSumMap.put("dexterity",  armor.getArmorAttribute().getDexterity()+heroAttributes.getDexterity());
-            attributeSumMap.put("intelligence",  armor.getArmorAttribute().getIntelligence()+heroAttributes.getIntelligence());
-
+            attributeSumMap.put("strength",  attributeSumMap.get("strength") + armor.getArmorAttribute().getStrength());
+            attributeSumMap.put("dexterity",  attributeSumMap.get("dexterity") + armor.getArmorAttribute().getDexterity());
+            attributeSumMap.put("intelligence",  attributeSumMap.get("intelligence") + armor.getArmorAttribute().getIntelligence());
         });
 
         return new HeroAttributes(attributeSumMap.get("strength"), attributeSumMap.get("dexterity"), attributeSumMap.get("intelligence"));
@@ -107,7 +106,7 @@ public abstract class Hero {
      * Calculates the damage a hero deals which is based in their currently
      * equipped weapon and increased by their attributes.
      */
-    public abstract int damage();
+    public abstract double damage();
 
     /**
      * Displays the heroes data
