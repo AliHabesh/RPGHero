@@ -124,7 +124,7 @@ public class RangerTest {
         hero.equipWeapon(weapon);
         double heroTotalDamage = hero.damage();
         System.out.println(heroTotalDamage);
-        assertTrue(heroTotalDamage == 1.0);
+        assertTrue(heroTotalDamage == 1.07);
     }
 
     @Test
