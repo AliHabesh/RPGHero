@@ -41,5 +41,5 @@ jobs:
       if: always()
       with:
           name: JEST Tests            # Name of the check run which will be created
-          path: reports/    # Path to test results
+          path: reports/jest-*.xml    # Path to test results
           reporter: jest-junit 
