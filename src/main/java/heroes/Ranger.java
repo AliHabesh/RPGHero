@@ -22,15 +22,10 @@ public class Ranger extends Hero{
 
 
     @Override
-    public int damage() {
+    public double damage() {
         Weapon weapon = (Weapon) this.getEquipment().get(Slot.Weapon);
         HeroAttributes heroAttributes = totalAttributes();
         return  weapon.getWeaponDamage() * (1+heroAttributes.getDexterity()/100);
-    }
-
-    @Override
-    public void display() {
-
     }
 
     @Override
@@ -38,6 +33,7 @@ public class Ranger extends Hero{
         if ((armor.getArmorType() == ArmorType.Leather) || (armor.getArmorType() == ArmorType.Mail))
             return armor;
 
+        this.getEquipment().put(armor.getSlot(), armor);
         throw new InvalidArmorException();
     }
 
@@ -46,6 +42,7 @@ public class Ranger extends Hero{
         if (weapon.getWeaponType() != WeaponType.Bows)
             throw new InvalidWeaponException();
 
+        this.getEquipment().put(weapon.getSlot(), weapon);
         return weapon;
     }
 }

@@ -4,6 +4,7 @@ import equipments.*;
 import exceptions.InvalidArmorException;
 import exceptions.InvalidWeaponException;
 import heroes.Hero;
+import heroes.HeroAttributes;
 import heroes.Mage;
 import org.junit.Assert;
 import org.junit.Test;
@@ -40,7 +41,8 @@ public class MageTest {
 
     @Test
     public void hero_Equip_Armor(){
-        Armor armor = new Armor("divineShirt", 2, Slot.Body, ArmorType.Cloth);
+        HeroAttributes attributes = new HeroAttributes(1, 1, 1);
+        Armor armor = new Armor("divineShirt", 2, Slot.Body, ArmorType.Cloth, attributes);
         Hero hero = new Mage("Gandalf");
          assertThrows(InvalidArmorException.class, () -> {
             hero.equipArmor(armor);
@@ -67,27 +69,57 @@ public class MageTest {
 
     @Test
     public void total_attributes_no_equipment(){
+        Hero hero = new Mage("Gandalf");
+        HeroAttributes heroAttributes = hero.totalAttributes();
+        System.out.println(heroAttributes);
+        assertTrue(heroAttributes.getStrength() == 1 && heroAttributes.getDexterity() == 1 && heroAttributes.getIntelligence() == 8);
 
     }
 
     @Test
-    public void total_attributes_one_armor_equipment(){
+    public void total_attributes_one_armor_equipment() throws InvalidArmorException {
+        Hero hero = new Mage("Gandalf");
+        HeroAttributes attributes = new HeroAttributes(1, 1, 1);
+        Armor armor = new Armor("MageHat", 1, Slot.Head, ArmorType.Cloth, attributes);
+        hero.equipArmor(armor);
+        HeroAttributes heroAttributes = hero.totalAttributes();
+        assertTrue(heroAttributes.getStrength() == 2 && heroAttributes.getDexterity() == 2 && heroAttributes.getIntelligence() == 9);
+    }
+
+    @Test
+    public void total_attributes_two_armor_equipments() throws InvalidArmorException {
+        Hero hero = new Mage("Gandalf");
+        HeroAttributes attributes = new HeroAttributes(1, 1, 1);
+        Armor armor = new Armor("MageHat", 1, Slot.Head, ArmorType.Cloth, attributes);
+        Armor armor2 = new Armor("MageShirt", 1, Slot.Body, ArmorType.Cloth, attributes);
+        hero.equipArmor(armor);
+        hero.equipArmor(armor2);
+        HeroAttributes heroAttributes = hero.totalAttributes();
+        assertTrue(heroAttributes.getStrength() == 3 && heroAttributes.getDexterity() == 3 && heroAttributes.getIntelligence() == 10);
 
     }
 
     @Test
-    public void total_attributes_two_armor_equipments(){
-
+    public void total_attributes_replace_armor_equipment() throws InvalidArmorException {
+        Hero hero = new Mage("Gandalf");
+        HeroAttributes attributes = new HeroAttributes(1, 1, 1);
+        HeroAttributes attributes2 = new HeroAttributes(1, 1, 1);
+        Armor firstArmor = new Armor("MageHat", 1, Slot.Head, ArmorType.Cloth, attributes);
+        Armor replceArmor = new Armor("MageShirt", 1, Slot.Head, ArmorType.Cloth, attributes2);
+        hero.equipArmor(firstArmor);
+        hero.equipArmor(replceArmor);
+        HeroAttributes heroAttributes = hero.totalAttributes();
+        assertTrue(heroAttributes.getStrength() == 2 && heroAttributes.getDexterity() == 2 && heroAttributes.getIntelligence() == 9);
     }
 
     @Test
-    public void total_attributes_replace_armor_equipment(){
-
-    }
-
-    @Test
-    public void hero_damage_no_weapon_equipment(){
-
+    public void hero_damage_no_weapon_equipment() throws InvalidWeaponException {
+        Hero hero = new Mage("Gandalf");
+        Weapon weapon = new Weapon("Staff", 1, WeaponType.Staffs, 1);
+        hero.equipWeapon(weapon);
+        double heroTotalDamage = hero.damage();
+        System.out.println(heroTotalDamage);
+        assertTrue(heroTotalDamage == 0.09);
     }
 
     @Test

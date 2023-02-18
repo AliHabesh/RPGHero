@@ -24,22 +24,19 @@ public class Warrior extends Hero{
 
 
     @Override
-    public int damage() {
+    public double damage() {
         Weapon weapon = (Weapon) this.getEquipment().get(Slot.Weapon);
         HeroAttributes heroAttributes = totalAttributes();
         return  weapon.getWeaponDamage() * (1+heroAttributes.getStrength()/100);
     }
 
-    @Override
-    public void display() {
-
-    }
 
     @Override
     public Item equipArmor(Armor armor) throws InvalidArmorException {
         if ((armor.getArmorType() == ArmorType.Plate) || (armor.getArmorType() == ArmorType.Mail))
             return armor;
 
+        this.getEquipment().put(armor.getSlot(), armor);
         throw new InvalidArmorException();
     }
 
@@ -49,6 +46,8 @@ public class Warrior extends Hero{
                 || weapon.getWeaponType() == WeaponType.Hammers
                 || weapon.getWeaponType() == WeaponType.Swords)
             return weapon;
+
+        this.getEquipment().put(weapon.getSlot(), weapon);
 
 
         throw new InvalidWeaponException();
