@@ -7,23 +7,35 @@
 # documentation.
 
 name: Java CI with Maven
+
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "master" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "master" ]
+    
+permissions:
+  checks: write
+  contents: read
+  issues: read
+  pull-requests: write
+
 jobs:
-  build:
+  Build_And_Test:
+  
     runs-on: ubuntu-latest
+
     steps:
     - uses: actions/checkout@v3
     - name: Set up JDK 17
       uses: actions/setup-java@v3
       with:
-        java-version: '19'
-        distribution: 'temurin'
+        java-version: '17'
+        distribution: 'corretto'
         cache: maven
     - name: Build with Maven
-      run: mvn -B package --file pom.xml verify
-    - name: Test Report
-      run: mvn test
+      run: mvn -B package --file pom.xml
+    - name: Test_Report
+      if: success() || failure()
+      uses: scacap/action-surefire-report@v1t
+      
