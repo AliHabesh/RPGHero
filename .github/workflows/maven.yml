@@ -41,5 +41,5 @@ jobs:
       if: always()
       with:
         files: |
-          reports/*.xml
-          reports/*.trx
+          reports/jest-*.xml
+          reports/jest-*.trx
